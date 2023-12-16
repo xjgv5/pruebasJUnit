@@ -11,9 +11,10 @@ class CuentaTest {
 
     @Test
     void testNombreCuenta() {
-        Cuenta cuenta = new Cuenta("Andres", new BigDecimal(12313131));
+        Cuenta cuenta = new Cuenta("Andres", new BigDecimal("12313131.123123"));
         String esperado = "Andres";
         String actual = cuenta.getPersona();
-        Assertions.assertEquals(esperado, actual);
+        assertEquals(esperado, actual);
+        assertTrue(actual.equals("Andres"));
     }
 }
