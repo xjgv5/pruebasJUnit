@@ -1,5 +1,6 @@
 package com.xjgv.junit5app.ejemplos.models;
 
+import com.xjgv.junit5app.ejemplos.models.excepciones.DineroInsuficienteException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -53,5 +54,16 @@ class CuentaTest {
         assertNotNull(cuenta.getSaldo());
         assertEquals(1100, cuenta.getSaldo().intValue());
         assertEquals("1100.123", cuenta.getSaldo().toPlainString());
+    }
+
+    @Test
+    void testDineroInsuficienteExceptionCuenta() {
+        Cuenta cuenta = new Cuenta("Andres", new BigDecimal("1000.123"));
+        Exception exeception =assertThrows(DineroInsuficienteException.class, () -> {
+           cuenta.debito(new BigDecimal(1500));
+        });
+        String esperado = "Saldo insuficiente";
+        String actual = exeception.getMessage();
+        assertEquals(esperado, actual);
     }
 }

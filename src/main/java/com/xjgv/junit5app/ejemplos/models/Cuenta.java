@@ -1,5 +1,7 @@
 package com.xjgv.junit5app.ejemplos.models;
 
+import com.xjgv.junit5app.ejemplos.models.excepciones.DineroInsuficienteException;
+
 import java.math.BigDecimal;
 
 public class Cuenta {
@@ -28,7 +30,12 @@ public class Cuenta {
     }
 
     public void debito(BigDecimal monto){
-        this.saldo = this.saldo.subtract(monto);
+
+        BigDecimal nuevoSaldo = this.saldo.subtract(monto);
+        if (nuevoSaldo.compareTo(BigDecimal.ZERO) < 0 ){
+            throw new DineroInsuficienteException("Saldo insuficiente");
+        }
+        this.saldo = nuevoSaldo;
     }
 
     public void credito(BigDecimal monto){
